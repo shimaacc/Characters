@@ -11,7 +11,7 @@ class CharacterListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     private var viewModel: CharacterListViewModelProtocol
     
-    init(viewModel: CharacterListViewModelProtocol = CharacterListViewModel()) {
+    init(viewModel: CharacterListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,7 +22,7 @@ class CharacterListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .white
     }
 
 
