@@ -6,38 +6,41 @@
 //
 
 import Foundation
-import Business
+import Common
 import Combine
+import Business
 
+@MainActor
 protocol CharacterListViewModelProtocol {
     var uiModel: CharacterListViewModel.UIModel { get set }
-
     func didSelctItem(at index: Int)
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
     var uiModel: CharacterListViewModel.UIModel = .init()
-  
-//    init() {
-//        Task {
-//           await fetchItems()
-//        }
-//    }
-//
-//    func fetchItems() async  {
-//        let result = await FetchCharactersUseCase(repository: <#CharactersRepositoryProtocol#>).execute()
-//        switch result {
-//        case .success(let list):
-//            mapItemUIModel(with: list)
-//        case .failure(let error):
-//            print("error")
-//        }
-//    }
+    var useCase: FetchCharacterListUseCaseProtocol
+    
+    init(useCase: FetchCharacterListUseCaseProtocol) {
+        self.useCase = useCase
+        Task {
+           await fetchItems()
+        }
+    }
+
+    func fetchItems() async  {
+        let result = await useCase.fetchCharacters(in: 1)
+        switch result {
+        case .success(let list):
+            uiModel.characterList = mapItemUIModel(from: list)
+        case .failure(let error):
+            print("error")
+        }
+    }
     
     
     func mapItemUIModel(from characterListDomainModels: [CharacterDomainModel]) -> [CharaterItemUIModel] {
         characterListDomainModels.map { domainModel in
-                .init(title: "", image: "",species: "" )
+            .init(title: domainModel.name, image: domainModel.image, species: domainModel.species)
         }
     }
     
@@ -49,7 +52,7 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
  
 extension CharacterListViewModel {
     class UIModel {
-        @Published var characterListItem: [CharaterItemUIModel] = []
+        @Published var characterList: [CharaterItemUIModel] = []
     }
 
     struct CharaterItemUIModel {
