@@ -9,6 +9,9 @@ import UIKit
 import CharacterList
 import CharacterDetails
 import Common
+import Network
+import Data
+import Business
 
 class AppCoordinator {
     private let window: UIWindow
@@ -17,8 +20,13 @@ class AppCoordinator {
         self.window = window
     }
 
+    @MainActor
     func start() {
-        let vc = CharacterListBuilder.build()
+        let network = NetworkingService()
+        let charactersRepository = CharactersRepository(networkingService: network)
+        let useCase = FetchCharactersUseCase(repository: charactersRepository)
+        
+        let vc = CharacterListBuilder.build(useCase: useCase)
         window.rootViewController = vc
         window.makeKeyAndVisible()
     }
