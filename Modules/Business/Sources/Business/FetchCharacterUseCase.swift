@@ -8,22 +8,26 @@
 import Foundation
 import Common
 
-public class FetchCharactersUseCase {
+//TODO: need to conform to protocol
+public class FetchCharactersUseCase: FetchCharacterListUseCaseProtocol {
+    
     private let repository: CharactersRepositoryProtocol
-
+    
     public init(repository: CharactersRepositoryProtocol) {
         self.repository = repository
     }
- 
-    public func execute() async -> Result<[CharacterDomainModel], NetworkError> {
+    
+    public func fetchCharacters(in page: Int) async -> Result<[CharacterDomainModel], NetworkError> {
         switch await repository.fetchCharacters(in: 1) {
         case .success(let response):
             let characters = response.map { CharacterDomainModel.from($0) }
             return .success(characters)
         case .failure(let error):
             //TODO: check
-                print("FetchCharactersUseCase failed in useCase")
+            print("FetchCharactersUseCase failed in useCase")
             return .failure(.invalidRequest)
         }
+        
     }
 }
+
