@@ -15,7 +15,7 @@ public class CharactersRepository: CharactersRepositoryProtocol {
         self.networkingService = networkingService
     }
     
-    public func fetchCharacters(in page: Int, status: String? = nil) async -> Result<[CharacterItem], NetworkError> {
+    public func fetchCharacters(in page: Int, status: String? = nil) async -> Result<CharactersListResponse, NetworkError> {
         var parameters: [RequestParameter] = [RequestParameter(name: "page", value: .query("\(page)"))]
         if let status {
              parameters = [RequestParameter(name: "status", value: .query(status))]
@@ -25,7 +25,7 @@ public class CharactersRepository: CharactersRepositoryProtocol {
         let result: Result<CharactersResource.Response, NetworkError> = await networkingService.request(resource)
         switch result {
         case .success(let data):
-            return .success(data.results ?? [])
+            return .success(data)
         case .failure(let error):
             return .failure(error)
         }
@@ -33,6 +33,7 @@ public class CharactersRepository: CharactersRepositoryProtocol {
 }
 //TODO: delete it, replace with endpoint, move it to the feature itself
 struct CharactersResource: ResourceType {
+    
     let method: HTTPMethod = .get
     let path = "api/character"
     var parameters: [RequestParameter] = []

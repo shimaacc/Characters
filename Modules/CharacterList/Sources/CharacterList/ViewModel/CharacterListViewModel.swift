@@ -15,7 +15,7 @@ protocol CharacterListViewModelProtocol {
     var uiModel: CharacterListViewModel.UIModel { get set }
     func didSelctItem(at index: Int)
     func didApplyFilterType()
-    func didReachEndOfPage()
+    func checkIfReachedEndOfPage(for index: Int)
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
@@ -24,25 +24,41 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
     let useCase: FetchCharacterListUseCaseProtocol
     let navigation: NavigationProtocol
     var page = 1
-    
+    private var hasReachedEndOfPage = false
+
     init(useCase: FetchCharacterListUseCaseProtocol,
          navigation: NavigationProtocol) {
         self.useCase = useCase
         self.navigation = navigation
         Task {
-           await fetchItems()
+           let list = await fetchItems()
         }
+        getStatuses(from: characterListDomainModels)
     }
 
     func fetchItems(status: String? = nil) async  {
         let result = await useCase.fetchCharacters(in: page, status: status?.lowercased())
+        print("fetching for page \(page)")
         switch result {
-        case .success(let list):
-            characterListDomainModels += list
+        case .success(let paginatedOutput):
+            // If no more next
+            guard paginatedOutput.next != nil else { return }
+            let list = paginatedOutput.output
+            characterListDomainModels += paginatedOutput.output
             uiModel.characterList += mapItemUIModel(from: list)
-            getStatuses(from: list)
         case .failure(let error):
-            print("error")
+            print("handle error")
+        }
+    }
+    
+    func checkIfReachedEndOfPage(for index: Int) {
+        if index + 1 == uiModel.characterList.count {
+            if !hasReachedEndOfPage {
+                didReachEndOfPage()
+                hasReachedEndOfPage = true
+            }
+        } else {
+            hasReachedEndOfPage = false
         }
     }
     
@@ -72,19 +88,17 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
     }
     
     func reset() {
-        page = 0
+        page = 1
         uiModel.characterList = []
+        characterListDomainModels = []
     }
     
     func getStatuses(from characters: [CharacterDomainModel]) {
-        //TODO: change to array to keep order
         let basicStatuses: Set<String> = Set(Status.allCases.map { $0.rawValue })
         let characterStatuses = Set(characters.map { $0.status })
         let allStatuses = basicStatuses.union(characterStatuses)
         uiModel.characterStatusesList = Array(allStatuses)
     }
-    
-    
 }
  
 extension CharacterListViewModel {

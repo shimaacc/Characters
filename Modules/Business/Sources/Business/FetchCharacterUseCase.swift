@@ -19,15 +19,19 @@ public class FetchCharactersUseCase: FetchCharacterListUseCaseProtocol {
         self.status = status
     }
     
-    public func fetchCharacters(in page: Int, status: String?) async -> Result<[CharacterDomainModel], NetworkError> {
+    public func fetchCharacters(in page: Int, status: String?) async -> Result<PaginatedOutput<[CharacterDomainModel]>, NetworkError> {
         switch await repository.fetchCharacters(in: page, status: status) {
         case .success(let response):
-            let characters = response.map { CharacterDomainModel.from($0) }
-            return .success(characters)
+            if let results = response.results {
+                let characters = results.compactMap { CharacterDomainModel.from($0) }
+                return .success(.init(output: characters, next: response.info?.next))
+            } else  {
+                return .failure(NetworkError.invalidRequest)
+            }
         case .failure(let error):
             //TODO: check
             print("FetchCharactersUseCase failed in useCase")
-            return .failure(.invalidRequest)
+            return .failure(NetworkError.networkError)
         }
     }
 }

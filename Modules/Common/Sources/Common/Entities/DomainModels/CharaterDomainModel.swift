@@ -15,6 +15,17 @@ public struct CharacterDomainModel: Decodable {
     public let species: String
     public let gender: Gender
     public let image: String
+    public let location: String
+    
+    public init(id: Int, name: String, status: String, species: String, gender: Gender, image: String, location: String) {
+        self.id = id
+        self.name = name
+        self.status = status
+        self.species = species
+        self.gender = gender
+        self.image = image
+        self.location = location
+    }
     
     public static func from(_ characterItem: CharacterItem) -> CharacterDomainModel {
            return CharacterDomainModel(
@@ -23,7 +34,8 @@ public struct CharacterDomainModel: Decodable {
                status: characterItem.status,
                species: characterItem.species,
                gender: Gender(rawValue: characterItem.gender) ?? .unknown,
-               image: characterItem.image
+               image: characterItem.image,
+               location: characterItem.location.name
            )
        }
 }

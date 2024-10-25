@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol FetchCharacterListUseCaseProtocol {
-    func fetchCharacters(in page: Int, status: String?) async -> Result<[CharacterDomainModel], NetworkError>
+    func fetchCharacters(in page: Int, status: String?) async -> Result<PaginatedOutput<[CharacterDomainModel]>, NetworkError>
 }

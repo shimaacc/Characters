@@ -25,6 +25,6 @@ public struct CharacterItem: Codable, Sendable {
 
 // MARK: - Location
 public struct Location: Codable, Sendable {
-    let name: String
-    let url: String
+    public let name: String
+    public let url: String
 }
