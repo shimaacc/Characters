@@ -21,7 +21,8 @@ class Navigation: NavigationProtocol {
             guard let arguments = arguments as? CharacterDetailsFeatureModel else { return }
             
             let vc = CharacterDetailsBuilder.build(featureModel: arguments)
-            navigationController.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .fullScreen
+            navigationController.present(vc, animated: true)
         default:
             break
         }

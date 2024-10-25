@@ -8,7 +8,7 @@
 import Foundation
 
 public struct CharacterDetailsFeatureModel {
-    var character: CharacterDomainModel
+    public var character: CharacterDomainModel
     
     public init(character: CharacterDomainModel) {
         self.character = character
