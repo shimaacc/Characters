@@ -15,7 +15,7 @@ protocol CharacterDetailsViewModelProtocol {
 
 enum CharaterDetailsCellType {
     case image(String)
-    case description(String)
+    case description(name: String, species: String, gender: String, status: String)
     case location(String)
 }
 
@@ -23,23 +23,22 @@ enum CharaterDetailsCellType {
 class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
     var uiModel: CharacterDetailsViewModel.UIModel = .init()
     let featureModel: CharacterDetailsFeatureModel
-
+    
     init(featureModel: CharacterDetailsFeatureModel) {
         self.featureModel = featureModel
         setupSetions()
     }
     
     func setupSetions() {
-        uiModel.sections = [
-             .image("star.fill"),
-             .description("This is a description for the second cell."),
-             .location("New York, USA")
-         ]
+        let item = featureModel.character
+        uiModel.sections.append(.image(item.image))
+        uiModel.sections.append(.description(name: item.name, species: item.species, gender: item.gender.rawValue, status: item.status))
+        uiModel.sections.append(.location(item.location))
     }
 }
 extension CharacterDetailsViewModel {
     class UIModel {
-//        @Published var characterItem: CharaterItemUIModel = .init()
+        @Published var characterItem: CharacterDomainModel?
         @Published var sections: [CharaterDetailsCellType] = []
     }
 }

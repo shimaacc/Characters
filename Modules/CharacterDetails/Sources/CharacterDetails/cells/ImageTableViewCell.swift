@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Kingfisher
 
 class ImageTableViewCell: UITableViewCell {
     static let reuseIdentifier = "ImageTableViewCell"
     
     func configure(with imageName: String) {
-        let swiftUIView = ImageCellView(imageName: imageName)
+        let swiftUIView = ImageCellView(imageURL: imageName)
         let hostingController = UIHostingController(rootView: swiftUIView)
         
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -29,10 +30,10 @@ class ImageTableViewCell: UITableViewCell {
 }
 
 struct ImageCellView: View {
-    let imageName: String
+    let imageURL: String
     
     var body: some View {
-        Image("img")
+        KFImage(URL(string: imageURL))
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: UIScreen.main.bounds.height * 0.4)

@@ -12,11 +12,18 @@ import SwiftUI
 class DescriptionTableViewCell: UITableViewCell {
     static let reuseIdentifier = "DescriptionTableViewCell"
     
-    func configure(with description: String) {
-        let swiftUIView =   DescriptionCellView(description: "This is the description.",
-                                                label1: "elf",
-                                                label2: ".",
-                                                label3: "male")
+    func configure(
+        with name: String,
+        species: String,
+        gender: String,
+        status: String
+    ) {
+        let swiftUIView =   DescriptionCellView(
+            name: name,
+            species: species,
+            gender: gender,
+            status: status
+        )
         let hostingController = UIHostingController(rootView: swiftUIView)
         
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -32,26 +39,27 @@ class DescriptionTableViewCell: UITableViewCell {
 }
 
 struct DescriptionCellView: View {
-    let description: String
-    let label1: String
-    let label2: String
-    let label3: String
-
+    let name: String
+    let species: String
+    let gender: String
+    let status: String
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(description)
+            Text(name)
                 .font(.body)
                 .padding(.bottom, 5)
 
             HStack(spacing: 3) {
-                Text(label1)
+                Text(species)
                     .padding()
 
-                Text(label2)
+                Text(".")
+                    .padding()
+                
+                Text(gender)
                     .padding()
 
-                Text(label3)
-                    .padding()
             }
         }.frame(maxWidth: .infinity, alignment: .leading)
         .padding()

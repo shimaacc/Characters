@@ -16,6 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Business/"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -23,7 +24,8 @@ let package = Package(
         .target(
             name: "CharacterList",
             dependencies: [
-                .product(name: "Business", package: "Business")
+                .product(name: "Business", package: "Business"),
+                .product(name: "Kingfisher", package: "Kingfisher")
             ]),
         .testTarget(
             name: "CharacterListTests",

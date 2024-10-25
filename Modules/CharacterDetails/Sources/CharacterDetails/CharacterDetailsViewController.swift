@@ -29,6 +29,7 @@ class CharacterDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupTableView()
+        setupBackButton()
     }
     
     func bind() {
@@ -51,12 +52,26 @@ class CharacterDetailsViewController: UIViewController {
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: ImageTableViewCell.reuseIdentifier)
         tableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: DescriptionTableViewCell.reuseIdentifier)
         tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: LocationTableViewCell.reuseIdentifier)
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-    }
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)    }
     
+    func setupBackButton() {
+           let backButton = UIButton(type: .custom)
+           backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward"), for: .normal)
+           backButton.backgroundColor = .lightGray
+           backButton.tintColor = .white
+           backButton.layer.cornerRadius = 25
+           backButton.clipsToBounds = true
+           backButton.frame = CGRect(x: 16, y: 40, width: 50, height: 50)
+           backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+           view.addSubview(backButton)
+       }
+    
+    @objc func backButtonTapped() {
+           dismiss(animated: true, completion: nil)
+       }
 }
 
 extension CharacterDetailsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -73,9 +88,15 @@ extension CharacterDetailsViewController: UITableViewDelegate, UITableViewDataSo
               cell.configure(with: imageName)
               return cell
               
-          case .description(let description):
+          case .description(let name, let species, let gender, let status):
               let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.reuseIdentifier, for: indexPath) as! DescriptionTableViewCell
-              cell.configure(with: description)
+              let item = viewModel.uiModel.characterItem
+              cell.configure(
+                with: name,
+                species: species,
+                gender: gender,
+                status: status
+              )
               return cell
               
           case .location(let location):

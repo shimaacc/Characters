@@ -60,7 +60,7 @@ class FilterHeaderCell: UITableViewHeaderFooterView {
     static let reuseIdentifier = "FilterHeaderCell"
     var charactersStatuses: [String] = []
 
-    var onStatusSelected: ((String) -> Void)?
+    var onStatusSelected: ((String?) -> Void)?
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -70,7 +70,7 @@ class FilterHeaderCell: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(charactersStatuses: [String], onStatusSelected: @escaping (String) -> Void) {
+    func configure(charactersStatuses: [String], onStatusSelected: @escaping (String?) -> Void) {
         self.charactersStatuses = charactersStatuses
         self.onStatusSelected = onStatusSelected
         updateUI()
@@ -96,26 +96,32 @@ class FilterHeaderCell: UITableViewHeaderFooterView {
 struct HorizontalCollectionView: View {
     let charactersStatuses: [String]
     @State private var selectedItem: String? // Track the selected item
-    var onStatusSelected: (String) -> Void // Closure to notify selection
-
-    init(charactersStatuses: [String], onStatusSelected: @escaping (String) -> Void) {
+    var onStatusSelected: (String?) -> Void // Closure to notify selection
+    
+    init(charactersStatuses: [String], onStatusSelected: @escaping (String?) -> Void) {
         self.charactersStatuses = charactersStatuses
         self.onStatusSelected = onStatusSelected
     }
-
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10) {
                 ForEach(charactersStatuses, id: \.self) { item in
                     Text(item)
                         .padding()
-                        .background(self.selectedItem == item ? Color.green : Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(self.selectedItem == item ? Color.gray : Color.white)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1)                        )
+                        .foregroundColor(self.selectedItem == item ? Color.white : Color.gray)
                         .onTapGesture {
-                            self.selectedItem = item
-                            // Call the closure when an item is selected
-                            self.onStatusSelected(item)
+                            var selectedItem = self.selectedItem == item ? nil : item
+                            self.onStatusSelected(selectedItem)
+                            
+                            self.selectedItem = selectedItem
                         }
                 }
             }
