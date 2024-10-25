@@ -15,10 +15,14 @@ public class CharactersRepository: CharactersRepositoryProtocol {
         self.networkingService = networkingService
     }
     
-    public func fetchCharacters(in page: Int) async -> Result<[CharacterItem], NetworkError> {
-        let resource = CharactersResource()
-        let result: Result<CharactersListResponse, NetworkError> = await networkingService.request(resource)
+    public func fetchCharacters(in page: Int, status: String? = nil) async -> Result<[CharacterItem], NetworkError> {
+        var parameters: [RequestParameter] = [RequestParameter(name: "page", value: .query("\(page)"))]
+        if let status {
+             parameters = [RequestParameter(name: "status", value: .query(status))]
+        }
+        var resource = CharactersResource(parameters: parameters)
         
+        let result: Result<CharactersResource.Response, NetworkError> = await networkingService.request(resource)
         switch result {
         case .success(let data):
             return .success(data.results ?? [])
@@ -31,7 +35,11 @@ public class CharactersRepository: CharactersRepositoryProtocol {
 struct CharactersResource: ResourceType {
     let method: HTTPMethod = .get
     let path = "api/character"
-    let parameters: [RequestParameter] = []
+    var parameters: [RequestParameter] = []
+    
+    init(parameters: [RequestParameter]) {
+        self.parameters = parameters
+    }
     
     func baseURL() -> String {
         return "https://rickandmortyapi.com"

@@ -8,7 +8,6 @@
 import UIKit
 import Combine
 
-@available(iOS 16.0, *)
 class CharacterListViewController: UIViewController {
     private var viewModel: CharacterListViewModelProtocol
     public var cancellables: Set<AnyCancellable> = .init()
@@ -27,6 +26,8 @@ class CharacterListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Characters"
+        view.backgroundColor = .white
         setupTableView()
         bind()
     }
@@ -40,6 +41,10 @@ class CharacterListViewController: UIViewController {
             }
         }.store(in: &cancellables)
 
+        viewModel.uiModel.$selectedFilterItem.sink { [weak self] item in
+            guard let self else { return }
+            viewModel.didApplyFilterType()
+        }.store(in: &cancellables)
     }
 }
 
@@ -49,14 +54,14 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
     func setupTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.reuseIdentifier)
+        tableView.register(FilterHeaderCell.self, forHeaderFooterViewReuseIdentifier: FilterHeaderCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,4 +76,26 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
             cell.characterStatus = character.species
             return cell
         }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FilterHeaderCell") as! FilterHeaderCell
+        cell.configure(charactersStatuses: viewModel.uiModel.characterStatusesList, onStatusSelected: { item in
+            self.viewModel.uiModel.selectedFilterItem = item
+        })
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelctItem(at: indexPath.item)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == viewModel.uiModel.characterList.count {
+            viewModel.didReachEndOfPage()
+        }
+    }
 }
