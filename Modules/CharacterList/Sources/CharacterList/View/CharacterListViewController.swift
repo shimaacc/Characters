@@ -41,7 +41,7 @@ class CharacterListViewController: UIViewController {
             }
         }.store(in: &cancellables)
 
-        viewModel.uiModel.$selectedFilterItem.sink { [weak self] item in
+        viewModel.uiModel.$selectedFilterItem.dropFirst().sink { [weak self] item in
             guard let self else { return }
             viewModel.didApplyFilterType()
         }.store(in: &cancellables)
@@ -60,6 +60,7 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.reuseIdentifier)
         tableView.register(FilterHeaderCell.self, forHeaderFooterViewReuseIdentifier: FilterHeaderCell.reuseIdentifier)
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -68,14 +69,18 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
         return viewModel.uiModel.characterList.count
         }
         
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableViewCell", for: indexPath) as! CharacterTableViewCell
-            let character = viewModel.uiModel.characterList[indexPath.row]
-            cell.characterImage = "star.fill"
-            cell.characterName = character.title
-            cell.characterStatus = character.species
-            return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterTableViewCell", for: indexPath) as! CharacterTableViewCell
+        let character = viewModel.uiModel.characterList[indexPath.row]
+        if let imageUrl = URL(string: character.image ?? "") {
+            cell.configure(
+                with: imageUrl,
+                characterName: character.title,
+                characterStatus: character.species
+            )
         }
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FilterHeaderCell") as! FilterHeaderCell
@@ -94,8 +99,6 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == viewModel.uiModel.characterList.count {
-            viewModel.didReachEndOfPage()
-        }
+        viewModel.checkIfReachedEndOfPage(for: indexPath.item)
     }
 }

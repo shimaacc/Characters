@@ -7,52 +7,47 @@
 
 import UIKit
 import SwiftUI
+import Kingfisher
 
-@available(iOS 16.0, *)
+
 class CharacterTableViewCell: UITableViewCell {
     static let reuseIdentifier = "CharacterTableViewCell"
     
-    var characterImage: String? {
-         didSet {
-             updateUI()
-         }
-     }
-     
-     var characterName: String? {
-         didSet {
-             updateUI()
-         }
-     }
-     
-     var characterStatus: String? {
-         didSet {
-             updateUI()
-         }
-     }
-     
-     private func updateUI() {
-         guard let image = characterImage, let name = characterName, let status = characterStatus else { return }
-         
-         self.contentConfiguration = UIHostingConfiguration {
-             CharacterRowView(image: image, name: name, status: status)
-         }
-     }
+    var imageUrl: URL?
+    var characterName: String?
+    var characterStatus: String?
+    
+    func configure(with imageUrl: URL, characterName: String, characterStatus: String) {
+        self.imageUrl = imageUrl
+        self.characterName = characterName
+        self.characterStatus = characterStatus
+        selectionStyle = .none
+        
+        self.contentConfiguration = UIHostingConfiguration {
+            CharacterRowView(imageUrl: imageUrl, name: characterName, status: characterStatus)
+        }
+    }
  }
 
 
 struct CharacterRowView: View {
-    let image: String
+    let imageUrl: URL
     let name: String
     let status: String
 
     var body: some View {
-        HStack {
-            Image(systemName: image)
+        HStack(alignment: .top) {
+            KFImage(imageUrl)
                 .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
-                .clipShape(Circle())
+                .scaledToFill()
+                .frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.width * 0.25)
                 .padding(.trailing, 10)
+                .padding(.leading, 10) 
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                )
+                .cornerRadius(10)
 
             VStack(alignment: .leading) {
                 Text(name)
@@ -61,9 +56,16 @@ struct CharacterRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-
+            .alignmentGuide(.top) { _ in 0 }
+            
             Spacer()
         }
         .padding()
+        .background(Color.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray, lineWidth: 0.7)
+        )
+        .cornerRadius(10)
     }
 }
