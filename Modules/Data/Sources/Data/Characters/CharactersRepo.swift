@@ -31,7 +31,7 @@ public class CharactersRepository: CharactersRepositoryProtocol {
         }
     }
 }
-//TODO: delete it, replace with endpoint, move it to the feature itself
+
 struct CharactersResource: ResourceType {
     
     let method: HTTPMethod = .get

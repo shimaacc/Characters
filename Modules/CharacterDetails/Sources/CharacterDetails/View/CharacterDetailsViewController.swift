@@ -15,7 +15,6 @@ class CharacterDetailsViewController: UIViewController {
     
     let tableView = UITableView()
     
-    //TODO: add this in builder
     init(viewModel: CharacterDetailsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,7 +32,6 @@ class CharacterDetailsViewController: UIViewController {
     }
     
     func bind() {
-        //TODO: replace sink, dispatch with uisink
         viewModel.uiModel.$sections.sink { [weak self] list in
             guard let self else { return }
             DispatchQueue.main.async {

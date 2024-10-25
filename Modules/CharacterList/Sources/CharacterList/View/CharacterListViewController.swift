@@ -14,7 +14,6 @@ class CharacterListViewController: UIViewController {
 
     let tableView = UITableView()
 
-    //TODO: add this in builder
     init(viewModel: CharacterListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,7 +32,6 @@ class CharacterListViewController: UIViewController {
     }
     
     func bind() {
-        //TODO: replace sink, dispatch with uisink
         viewModel.uiModel.$characterList.sink { [weak self] list in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -47,8 +45,6 @@ class CharacterListViewController: UIViewController {
         }.store(in: &cancellables)
     }
 }
-
-@available(iOS 16.0, *)
 
 extension CharacterListViewController: UITableViewDataSource, UITableViewDelegate {
     func setupTableView() {

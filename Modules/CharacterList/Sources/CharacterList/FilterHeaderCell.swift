@@ -10,52 +10,6 @@ import UIKit
 import SwiftUI
 import Common
 
-//class FilterHeaderCell: UITableViewHeaderFooterView {
-//    static let reuseIdentifier = "FilterHeaderCell"
-//    var charactersStatuses: [String] = []
-//    var onStatusSelected: ((String) -> Void)?
-//    
-//    override init(reuseIdentifier: String?) {
-//        super.init(reuseIdentifier: reuseIdentifier)
-//        self.contentConfiguration = UIHostingConfiguration {
-//            HorizontalCollectionView(charactersStatuses:["0","1","2"]) { selectedItem in
-//                self.onStatusSelected?(selectedItem)
-//            }
-//        }
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    func configure(charactersStatuses: [String]) {
-//        self.charactersStatuses = charactersStatuses
-//    }
-//}
-//
-//
-//struct HorizontalCollectionView: View {
-//    let charactersStatuses: [String]
-//    @State private var selectedItem: String?
-//    
-//    var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false) {
-//            LazyHStack(spacing: 10) {
-//                ForEach(charactersStatuses, id: \.self) { item in
-//                    Text(item)
-//                        .padding()
-//                        .background(Color.blue)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(8)
-//                        .onTapGesture {
-//                            self.selectedItem = item
-//                        }
-//                }
-//            }
-//        }
-//    }
-//}
-
 class FilterHeaderCell: UITableViewHeaderFooterView {
     static let reuseIdentifier = "FilterHeaderCell"
     var charactersStatuses: [String] = []

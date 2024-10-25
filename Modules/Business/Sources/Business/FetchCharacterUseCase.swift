@@ -8,9 +8,7 @@
 import Foundation
 import Common
 
-//TODO: need to conform to protocol
 public class FetchCharactersUseCase: FetchCharacterListUseCaseProtocol {
-    
     private let repository: CharactersRepositoryProtocol
     var status: String?
     
@@ -29,8 +27,6 @@ public class FetchCharactersUseCase: FetchCharacterListUseCaseProtocol {
                 return .failure(NetworkError.invalidRequest)
             }
         case .failure(let error):
-            //TODO: check
-            print("FetchCharactersUseCase failed in useCase")
             return .failure(NetworkError.networkError)
         }
     }
