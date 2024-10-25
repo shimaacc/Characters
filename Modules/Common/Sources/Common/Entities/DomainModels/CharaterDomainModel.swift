@@ -8,10 +8,10 @@
 import Foundation
 import Common
 
-public struct CharacterDomainModel {
+public struct CharacterDomainModel: Decodable {
     public let id: Int
     public let name: String
-    public let status: Status
+    public let status: String
     public let species: String
     public let gender: Gender
     public let image: String
@@ -20,7 +20,7 @@ public struct CharacterDomainModel {
            return CharacterDomainModel(
                id: characterItem.id,
                name: characterItem.name,
-               status: Status(rawValue: characterItem.status) ?? .unknown,
+               status: characterItem.status,
                species: characterItem.species,
                gender: Gender(rawValue: characterItem.gender) ?? .unknown,
                image: characterItem.image
@@ -31,13 +31,13 @@ public struct CharacterDomainModel {
 
 
 // MARK: - Enums for Business Logic
-public enum Gender: String {
+public enum Gender: String, Decodable {
     case female = "Female"
     case male = "Male"
     case unknown = "Unknown"
 }
 
-public enum Status: String {
+public enum Status: String, CaseIterable {
     case alive = "Alive"
     case dead = "Dead"
     case unknown = "Unknown"

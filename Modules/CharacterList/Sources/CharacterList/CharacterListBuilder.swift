@@ -10,16 +10,9 @@ import Common
 
 @MainActor
 public struct CharacterListBuilder {
-     public static func build(useCase: FetchCharacterListUseCaseProtocol) -> UIViewController {
-//        let charactersRepository: CharactersRepositoryProtocol = CharactersRepository(networkingService: NetworkingService())
-
-        let viewModel = CharacterListViewModel(useCase: useCase)
-        if #available(iOS 16.0, *) {
-            let viewController = CharacterListViewController(viewModel: viewModel)
-            return viewController
-        } else {
-            return UIViewController()
-        }
-       
+    public static func build(useCase: FetchCharacterListUseCaseProtocol, navigation: NavigationProtocol) -> UIViewController {
+        let viewModel = CharacterListViewModel(useCase: useCase, navigation: navigation)
+        let viewController = CharacterListViewController(viewModel: viewModel)
+        return viewController
     }
 }
