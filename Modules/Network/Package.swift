@@ -6,10 +6,9 @@ import PackageDescription
 let package = Package(
     name: "Network",
     platforms: [
-            .iOS(.v16)  // Set the minimum iOS version to 15
+            .iOS(.v16)
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Network",
             targets: ["Network"]),
@@ -18,8 +17,6 @@ let package = Package(
         .package(path: "../Common/"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Network",
             dependencies: [

@@ -14,8 +14,8 @@
             filePath = "Modules/Network/Sources/Network/NetworkingService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "request(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,73 +30,9 @@
             filePath = "Modules/Network/Sources/Network/NetworkingService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "request(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4640EE85-B35B-408C-9C8A-96533A614E1E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Characters/Navigation.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "navigate(to:arguments:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4640EE85-B35B-408C-9C8A-96533A614E1E - 6ed829a8ab94b762"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Characters.Navigation.navigate(to: Swift.String, arguments: Swift.Optional&lt;Any&gt;) -&gt; ()"
-                  moduleName = "Characters"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hebaelcc/Documents/Characters/CharactersApp/Characters/Navigation.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "880">
-               </Location>
-               <Location
-                  uuid = "4640EE85-B35B-408C-9C8A-96533A614E1E - 6ed829a8ab94b762"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Characters.Navigation.navigate(to: Swift.String, arguments: Swift.Optional&lt;Any&gt;) -&gt; ()"
-                  moduleName = "Characters"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hebaelcc/Documents/Characters/CharactersApp/Characters/Navigation.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "980">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "549B0238-04D5-47B6-A176-20D1F27E3B1A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Characters/Navigation.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "navigate(to:arguments:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -272,85 +208,6 @@
             endingLineNumber = "48"
             landmarkName = "fetchItems(status:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "656D0967-4254-4C58-8329-AAF26AE5A43F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Modules/CharacterList/Sources/CharacterList/ViewModel/CharacterListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "didApplyFilterType()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6351AB91-755C-4908-96A5-490DB7812841"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Modules/CharacterList/Sources/CharacterList/ViewModel/CharacterListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "didApplyFilterType()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6351AB91-755C-4908-96A5-490DB7812841 - aef5df6c3f1e2f09"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CharacterList.CharacterListViewModel.didApplyFilterType() -&gt; ()"
-                  moduleName = "Characters"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hebaelcc/Documents/Characters/CharactersApp/Modules/CharacterList/Sources/CharacterList/ViewModel/CharacterListViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  uuid = "6351AB91-755C-4908-96A5-490DB7812841 - 8d28e6d9b1a086a4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable () async throws -&gt; () in CharacterList.CharacterListViewModel.didApplyFilterType() -&gt; ()"
-                  moduleName = "Characters"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hebaelcc/Documents/Characters/CharactersApp/Modules/CharacterList/Sources/CharacterList/ViewModel/CharacterListViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "72">
-               </Location>
-               <Location
-                  uuid = "6351AB91-755C-4908-96A5-490DB7812841 - bfeb91e1bcc5b6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in CharacterList.CharacterListViewModel.didApplyFilterType() -&gt; ()"
-                  moduleName = "Characters"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hebaelcc/Documents/Characters/CharactersApp/Modules/CharacterList/Sources/CharacterList/ViewModel/CharacterListViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

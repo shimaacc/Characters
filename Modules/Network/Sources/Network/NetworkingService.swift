@@ -19,7 +19,6 @@ public class NetworkingService: NetworkingType {
     }
 
     public func request<R>(_ resource: R) async -> Result<R.Response, NetworkError> where R: ResourceType {
-        // Create request
         let request: URLRequest
         
         do {

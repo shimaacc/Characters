@@ -27,6 +27,7 @@ class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         title = "Characters"
         view.backgroundColor = .white
+        viewModel.viewDidLoad()
         setupTableView()
         bind()
     }
@@ -95,6 +96,8 @@ extension CharacterListViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        viewModel.checkIfReachedEndOfPage(for: indexPath.item)
+        Task {
+            await viewModel.checkIfReachedEndOfPage(for: indexPath.item)
+        }
     }
 }

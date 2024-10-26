@@ -27,9 +27,9 @@
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:Characters.xcodeproj",
-        "identifier" : "4598FDA32CC80B6E00EB2B1F",
-        "name" : "CharactersUITests"
+        "containerPath" : "container:CharacterList",
+        "identifier" : "CharacterListTests",
+        "name" : "CharacterListTests"
       }
     }
   ],

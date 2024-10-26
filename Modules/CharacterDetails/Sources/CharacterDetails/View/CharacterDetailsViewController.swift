@@ -1,6 +1,6 @@
 //
 //  File 2.swift
-//  
+//
 //
 //  Created by Shimaa Elsisi on 25.10.2024.
 //
@@ -30,7 +30,9 @@ class CharacterDetailsViewController: UIViewController {
         setupTableView()
         setupBackButton()
     }
-    
+}
+
+private extension CharacterDetailsViewController {
     func bind() {
         viewModel.uiModel.$sections.sink { [weak self] list in
             guard let self else { return }
@@ -53,54 +55,54 @@ class CharacterDetailsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)    }
+    }
     
     func setupBackButton() {
-           let backButton = UIButton(type: .custom)
-           backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward"), for: .normal)
-           backButton.backgroundColor = .lightGray
-           backButton.tintColor = .white
-           backButton.layer.cornerRadius = 25
-           backButton.clipsToBounds = true
-           backButton.frame = CGRect(x: 16, y: 40, width: 50, height: 50)
-           backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-           view.addSubview(backButton)
-       }
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward"), for: .normal)
+        backButton.backgroundColor = .lightGray
+        backButton.tintColor = .white
+        backButton.layer.cornerRadius = 25
+        backButton.clipsToBounds = true
+        backButton.frame = CGRect(x: 16, y: 40, width: 50, height: 50)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        view.addSubview(backButton)
+    }
     
     @objc func backButtonTapped() {
-           dismiss(animated: true, completion: nil)
-       }
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension CharacterDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.uiModel.sections.count
-      }
-
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          let item = viewModel.uiModel.sections[indexPath.row]
-          
-          switch item {
-          case .image(let imageName):
-              let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.reuseIdentifier, for: indexPath) as! ImageTableViewCell
-              cell.configure(with: imageName)
-              return cell
-              
-          case .description(let name, let species, let gender, let status):
-              let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.reuseIdentifier, for: indexPath) as! DescriptionTableViewCell
-              let item = viewModel.uiModel.characterItem
-              cell.configure(
+        let item = viewModel.uiModel.sections[indexPath.row]
+        
+        switch item {
+        case .image(let imageName):
+            let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.reuseIdentifier, for: indexPath) as! ImageTableViewCell
+            cell.configure(with: imageName)
+            return cell
+            
+        case .description(let name, let species, let gender, let status):
+            let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.reuseIdentifier, for: indexPath) as! DescriptionTableViewCell
+            let item = viewModel.uiModel.characterItem
+            cell.configure(
                 with: name,
                 species: species,
                 gender: gender,
                 status: status
-              )
-              return cell
-              
-          case .location(let location):
-              let cell = tableView.dequeueReusableCell(withIdentifier: LocationTableViewCell.reuseIdentifier, for: indexPath) as! LocationTableViewCell
-              cell.configure(with: location)
-              return cell
-          }
-      }
+            )
+            return cell
+            
+        case .location(let location):
+            let cell = tableView.dequeueReusableCell(withIdentifier: LocationTableViewCell.reuseIdentifier, for: indexPath) as! LocationTableViewCell
+            cell.configure(with: location)
+            return cell
+        }
+    }
 }

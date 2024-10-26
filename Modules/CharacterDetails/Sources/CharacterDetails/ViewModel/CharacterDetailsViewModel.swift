@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Shimaa Elsisi on 25.10.2024.
 //
@@ -12,14 +12,6 @@ protocol CharacterDetailsViewModelProtocol {
     var uiModel: CharacterDetailsViewModel.UIModel { get set }
 }
 
-
-enum CharaterDetailsCellType {
-    case image(String)
-    case description(name: String, species: String, gender: String, status: String)
-    case location(String)
-}
-
-
 class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
     var uiModel: CharacterDetailsViewModel.UIModel = .init()
     let featureModel: CharacterDetailsFeatureModel
@@ -28,7 +20,9 @@ class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
         self.featureModel = featureModel
         setupSetions()
     }
-    
+}
+
+private extension CharacterDetailsViewModel {
     func setupSetions() {
         let item = featureModel.character
         uiModel.sections.append(.image(item.image))
@@ -36,9 +30,17 @@ class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
         uiModel.sections.append(.location(item.location))
     }
 }
+
 extension CharacterDetailsViewModel {
     class UIModel {
         @Published var characterItem: CharacterDomainModel?
         @Published var sections: [CharaterDetailsCellType] = []
     }
+    
+    enum CharaterDetailsCellType {
+        case image(String)
+        case description(name: String, species: String, gender: String, status: String)
+        case location(String)
+    }
+    
 }

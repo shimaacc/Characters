@@ -6,26 +6,25 @@ import PackageDescription
 let package = Package(
     name: "CharacterList",
     platforms: [
-            .iOS(.v16)  // Set the minimum iOS version to 15
+            .iOS(.v16)
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "CharacterList",
             targets: ["CharacterList"]),
     ],
     dependencies: [
         .package(path: "../Business/"),
+        .package(path: "../Common/"),
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "CharacterList",
             dependencies: [
                 .product(name: "Business", package: "Business"),
-                .product(name: "Kingfisher", package: "Kingfisher")
+                .product(name: "Kingfisher", package: "Kingfisher"),
+                .product(name: "Common", package: "Common")
             ]),
         .testTarget(
             name: "CharacterListTests",

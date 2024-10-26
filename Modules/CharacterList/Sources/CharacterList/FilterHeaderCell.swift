@@ -49,8 +49,8 @@ class FilterHeaderCell: UITableViewHeaderFooterView {
 
 struct HorizontalCollectionView: View {
     let charactersStatuses: [String]
-    @State private var selectedItem: String? // Track the selected item
-    var onStatusSelected: (String?) -> Void // Closure to notify selection
+    @State private var selectedItem: String? 
+    var onStatusSelected: (String?) -> Void
     
     init(charactersStatuses: [String], onStatusSelected: @escaping (String?) -> Void) {
         self.charactersStatuses = charactersStatuses

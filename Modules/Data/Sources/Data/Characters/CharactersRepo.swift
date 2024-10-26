@@ -33,7 +33,6 @@ public class CharactersRepository: CharactersRepositoryProtocol {
 }
 
 struct CharactersResource: ResourceType {
-    
     let method: HTTPMethod = .get
     let path = "api/character"
     var parameters: [RequestParameter] = []
